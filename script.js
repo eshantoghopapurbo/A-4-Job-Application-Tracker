@@ -41,11 +41,22 @@ function toggleStyle(id){
 
     selected.classList.remove('bg-gray-400','text-black')
     selected.classList.add('bg-blue-500','text-white')
+
+    if(id == 'interview-job-btn'){
+        allCardSection.classList.add('hidden');
+         filteredSection.classList.remove('hidden')
+    }else if(id == 'all-job-btn'){
+        allCardSection.classList.remove('hidden');
+        filteredSection.classList.add('hidden');
+    }else if(id == 'rejected-job-btn'){
+        allCardSection.classList.add('hidden');
+         filteredSection.classList.remove('hidden')
+    }
+
+
 }
 
 mainContainer.addEventListener('click', function(event){
-
-    console.log(event.target.classList.contains('interview-btn'));
 
    if (event.target.classList.contains  ('interview-btn')){
      const parenNode = event.target.parentNode.parentNode;
@@ -53,25 +64,60 @@ mainContainer.addEventListener('click', function(event){
     const nativeDeveloper = parenNode.querySelector('.nativeDeveloper').innerText   
     const remoteJob = parenNode.querySelector('.remoteJob').innerText   
     const status = parenNode.querySelector('.status').innerText   
-    const notes = parenNode.querySelector('.notes').innerText   
+    const notes = parenNode.querySelector('.notes').innerText  
+    
+      parenNode.querySelector('.status').innerText = 'interview'
    
 
     const cardInfo ={
         fristCorp ,
         nativeDeveloper,
          remoteJob,
-         status,
+         status:'interview',
          notes
     }
     
     const fristCorpExist = InterviewList.find(item =>  item.fristCorp == cardInfo.fristCorp)
 
-    parenNode.querySelector('.status').innerText = 'interview'
+  
 
     if(!fristCorpExist){
         InterviewList.push(cardInfo)
+
+        calculateCount ()
         renderInterview()
     }
+
+}else if (event.target.classList.contains  ('rejected-btn')){
+     const parenNode = event.target.parentNode.parentNode;
+    const fristCorp = parenNode.querySelector('.fristCorp').innerText   
+    const nativeDeveloper = parenNode.querySelector('.nativeDeveloper').innerText   
+    const remoteJob = parenNode.querySelector('.remoteJob').innerText   
+    const status = parenNode.querySelector('.status').innerText   
+    const notes = parenNode.querySelector('.notes').innerText  
+    
+      parenNode.querySelector('.status').innerText = 'rejected'
+   
+
+    const cardInfo ={
+        fristCorp ,
+        nativeDeveloper,
+         remoteJob,
+         status:'rejected',
+         notes
+    }
+    
+    const fristCorpExist = RejectedList.find(item =>  item.fristCorp == cardInfo.fristCorp)
+
+  
+
+    if(!fristCorpExist){
+        RejectedList.push(cardInfo)
+
+        calculateCount ()
+        renderRejected()
+    }
+
 }
 })
 
@@ -88,16 +134,54 @@ function renderInterview (){
              <div class="space-y-6">
                 <!-- part -1 -->
                  <div>
-                    <h1 class="fristCorp text-2xl font-semibold">Mobile First Corp</h1>
-                <p class="nativeDeveloper text-gray-400">React Native Developer</p>
+                    <h1 class="fristCorp text-2xl font-semibold">${Interview.fristCorp}</h1>
+                <p class="nativeDeveloper text-gray-400">${Interview.nativeDeveloper}</p>
                  </div>
                  <!-- part -2 -->
                   <div>
-                    <p class="remoteJob text-gray-400">Remote• Full-time •$130,000 - $175,000</p>
+                    <p class="remoteJob text-gray-400">${Interview.remoteJob}</p>
                   </div>
                   <!-- part -3 -->
-                    <p class="status">Not Applied</p>
-                    <p class="notes ">Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.</p> 
+                    <p class="status">${Interview.status}</p>
+                    <p class="notes ">${Interview.notes}</p> 
+
+                    <div class="flex gap-3">
+                        <button class="interview-btn shadow-lg border border-green-400 px-4 py-2 text-green-400 font-bold rounded-sm ">interview</button>
+                        <button class="rejected-btn shadow-lg border border-red-400 px-4 py-2 text-red-400 font-bold rounded-sm">Rejected</button>
+                    </div>
+             </div>
+             <!-- main part-2 -->
+              <div >
+               <button class="btn-delete" > <i class="fa-regular fa-trash-can"></i></button>
+              </div>
+        `
+        filteredSection.appendChild(div)
+
+    }
+}
+function renderRejected (){
+    filteredSection.innerHTML = ``
+
+    for (let Rejected of RejectedList){
+        console.log(Interview);
+
+
+        let div = document.createElement('div');
+        div.className ='card flex justify-between border border-white shadow-lg p-8'
+        div.innerHTML =` <!-- main part-1 -->
+             <div class="space-y-6">
+                <!-- part -1 -->
+                 <div>
+                    <h1 class="fristCorp text-2xl font-semibold">${Rejected.fristCorp}</h1>
+                <p class="nativeDeveloper text-gray-400">${Rejected.nativeDeveloper}</p>
+                 </div>
+                 <!-- part -2 -->
+                  <div>
+                    <p class="remoteJob text-gray-400">${Rejected.remoteJob}</p>
+                  </div>
+                  <!-- part -3 -->
+                    <p class="status">${Rejected.status}</p>
+                    <p class="notes ">${Rejected.notes}</p> 
 
                     <div class="flex gap-3">
                         <button class="interview-btn shadow-lg border border-green-400 px-4 py-2 text-green-400 font-bold rounded-sm ">interview</button>
