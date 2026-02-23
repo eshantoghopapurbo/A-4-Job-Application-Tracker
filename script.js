@@ -1,5 +1,7 @@
- let InterviewList = [];
- let RejectedList = [];
+let InterviewList = [];
+let RejectedList = [];
+
+let currentStatus = 'all'
 
 let total = document.getElementById('Total');
 let Interview = document.getElementById('Interview');
@@ -10,127 +12,138 @@ const interviewJobBtn = document.getElementById('interview-job-btn')
 const rejectedJobBtn = document.getElementById('rejected-job-btn')
 
 const allCardSection = document.getElementById('all-cards');
-const mainContainer = document.querySelector('main')    
-const filteredSection =document.getElementById('filtered-section')
- 
+const mainContainer = document.querySelector('main')
+const filteredSection = document.getElementById('filtered-section')
 
 
-function calculateCount (){
+
+function calculateCount() {
     total.innerText = allCardSection.children.length
     Interview.innerText = InterviewList.length
     Rejected.innerText = RejectedList.length
 }
-calculateCount ()
+calculateCount()
 
-function toggleStyle(id){
+function toggleStyle(id) {
 
-    allJobBtn.classList.add('bg-gray-400','text-black')
-    interviewJobBtn.classList.add('bg-gray-400','text-black')
-    rejectedJobBtn.classList.add('bg-gray-400','text-black')
+    allJobBtn.classList.add('bg-gray-400', 'text-black')
+    interviewJobBtn.classList.add('bg-gray-400', 'text-black')
+    rejectedJobBtn.classList.add('bg-gray-400', 'text-black')
 
-    allJobBtn.classList.remove('bg-blue-500','text-white')
-    interviewJobBtn.classList.remove('bg-blue-500','text-white')
-    rejectedJobBtn.classList.remove('bg-blue-500','text-white')
+    allJobBtn.classList.remove('bg-blue-500', 'text-white')
+    interviewJobBtn.classList.remove('bg-blue-500', 'text-white')
+    rejectedJobBtn.classList.remove('bg-blue-500', 'text-white')
 
 
-    console.log(id);
+    // console.log(id);
 
     const selected = document.getElementById(id)
-    console.log(selected);
-    
+    currentStatus = id
 
-    selected.classList.remove('bg-gray-400','text-black')
-    selected.classList.add('bg-blue-500','text-white')
+    // console.log(selected);
 
-    if(id == 'interview-job-btn'){
+
+    selected.classList.remove('bg-gray-400', 'text-black')
+    selected.classList.add('bg-blue-500', 'text-white')
+
+    if (id == 'interview-job-btn') {
         allCardSection.classList.add('hidden');
-         filteredSection.classList.remove('hidden')
-    }else if(id == 'all-job-btn'){
+        filteredSection.classList.remove('hidden')
+        renderInterview()
+    } else if (id == 'all-job-btn') {
         allCardSection.classList.remove('hidden');
         filteredSection.classList.add('hidden');
-    }else if(id == 'rejected-job-btn'){
+    } else if (id == 'rejected-job-btn') {
         allCardSection.classList.add('hidden');
-         filteredSection.classList.remove('hidden')
-    }
-
-
-}
-
-mainContainer.addEventListener('click', function(event){
-
-   if (event.target.classList.contains  ('interview-btn')){
-     const parenNode = event.target.parentNode.parentNode;
-    const fristCorp = parenNode.querySelector('.fristCorp').innerText   
-    const nativeDeveloper = parenNode.querySelector('.nativeDeveloper').innerText   
-    const remoteJob = parenNode.querySelector('.remoteJob').innerText   
-    const status = parenNode.querySelector('.status').innerText   
-    const notes = parenNode.querySelector('.notes').innerText  
-    
-      parenNode.querySelector('.status').innerText = 'interview'
-   
-
-    const cardInfo ={
-        fristCorp ,
-        nativeDeveloper,
-         remoteJob,
-         status:'interview',
-         notes
-    }
-    
-    const fristCorpExist = InterviewList.find(item =>  item.fristCorp == cardInfo.fristCorp)
-
-  
-
-    if(!fristCorpExist){
-        InterviewList.push(cardInfo)
-
-        calculateCount ()
-        renderInterview()
-    }
-
-}else if (event.target.classList.contains  ('rejected-btn')){
-     const parenNode = event.target.parentNode.parentNode;
-    const fristCorp = parenNode.querySelector('.fristCorp').innerText   
-    const nativeDeveloper = parenNode.querySelector('.nativeDeveloper').innerText   
-    const remoteJob = parenNode.querySelector('.remoteJob').innerText   
-    const status = parenNode.querySelector('.status').innerText   
-    const notes = parenNode.querySelector('.notes').innerText  
-    
-      parenNode.querySelector('.status').innerText = 'rejected'
-   
-
-    const cardInfo ={
-        fristCorp ,
-        nativeDeveloper,
-         remoteJob,
-         status:'rejected',
-         notes
-    }
-    
-    const fristCorpExist = RejectedList.find(item =>  item.fristCorp == cardInfo.fristCorp)
-
-  
-
-    if(!fristCorpExist){
-        RejectedList.push(cardInfo)
-
-        calculateCount ()
+        filteredSection.classList.remove('hidden')
         renderRejected()
     }
-
 }
+
+mainContainer.addEventListener('click', function (event) {
+
+    if (event.target.classList.contains('interview-btn')) {
+        const parenNode = event.target.parentNode.parentNode;
+        const fristCorp = parenNode.querySelector('.fristCorp').innerText
+        const nativeDeveloper = parenNode.querySelector('.nativeDeveloper').innerText
+        const remoteJob = parenNode.querySelector('.remoteJob').innerText
+        const status = parenNode.querySelector('.status').innerText
+        const notes = parenNode.querySelector('.notes').innerText
+
+        parenNode.querySelector('.status').innerText = 'Interview'
+
+
+        const cardInfo = {
+            fristCorp,
+            nativeDeveloper,
+            remoteJob,
+            status: 'Interview',
+            notes
+        }
+
+        const fristCorpExist = InterviewList.find(item => item.fristCorp == cardInfo.fristCorp)
+
+
+
+        if (!fristCorpExist) {
+            InterviewList.push(cardInfo)
+        }
+
+        RejectedList = RejectedList.filter(item=> item.fristCorp != cardInfo.fristCorp)
+
+        calculateCount()
+        if (currentStatus = 'Rejected-job-btn') {
+            renderRejected();    
+        }
+
+    } else if (event.target.classList.contains('rejected-btn')) {
+        const parenNode = event.target.parentNode.parentNode;
+        const fristCorp = parenNode.querySelector('.fristCorp').innerText
+        const nativeDeveloper = parenNode.querySelector('.nativeDeveloper').innerText
+        const remoteJob = parenNode.querySelector('.remoteJob').innerText
+        const status = parenNode.querySelector('.status').innerText
+        const notes = parenNode.querySelector('.notes').innerText
+
+        parenNode.querySelector('.status').innerText = 'rejected'
+
+
+        const cardInfo = {
+            fristCorp,
+            nativeDeveloper,
+            remoteJob,
+            status: 'rejected',
+            notes
+        }
+
+        const fristCorpExist = RejectedList.find(item => item.fristCorp == cardInfo.fristCorp)
+
+
+
+        if (!fristCorpExist) {
+            RejectedList.push(cardInfo)
+        }
+        
+            InterviewList = InterviewList.filter(item => item.fristCorp != cardInfo.fristCorp)
+
+            if(currentStatus == "interview-job-btn"){
+                renderInterview();
+            }
+
+        
+        calculateCount()
+    }
 })
 
-function renderInterview (){
+function renderInterview() {
     filteredSection.innerHTML = ``
 
-    for (let Interview of InterviewList){
+    for (let Interview of InterviewList) {
         console.log(Interview);
 
 
         let div = document.createElement('div');
-        div.className ='card flex justify-between border border-white shadow-lg p-8'
-        div.innerHTML =` <!-- main part-1 -->
+        div.className = 'card flex justify-between border border-white shadow-lg p-8'
+        div.innerHTML = ` <!-- main part-1 -->
              <div class="space-y-6">
                 <!-- part -1 -->
                  <div>
@@ -159,16 +172,16 @@ function renderInterview (){
 
     }
 }
-function renderRejected (){
+function renderRejected() {
     filteredSection.innerHTML = ``
 
-    for (let Rejected of RejectedList){
+    for (let Rejected of RejectedList) {
         console.log(Interview);
 
 
         let div = document.createElement('div');
-        div.className ='card flex justify-between border border-white shadow-lg p-8'
-        div.innerHTML =` <!-- main part-1 -->
+        div.className = 'card flex justify-between border border-white shadow-lg p-8'
+        div.innerHTML = ` <!-- main part-1 -->
              <div class="space-y-6">
                 <!-- part -1 -->
                  <div>
