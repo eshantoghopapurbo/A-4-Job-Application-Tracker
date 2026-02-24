@@ -92,7 +92,7 @@ mainContainer.addEventListener('click', function (event) {
         RejectedList = RejectedList.filter(item=> item.fristCorp != cardInfo.fristCorp)
 
         calculateCount()
-        if (currentStatus = 'Rejected-job-btn') {
+        if (currentStatus == 'Rejected-job-btn') {
             renderRejected();    
         }
 
