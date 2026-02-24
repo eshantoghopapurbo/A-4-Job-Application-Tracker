@@ -4,50 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Application Tracker</title>
-      <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />   
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
 </head>
+
 <body>
     <header class="lg:w-[1110px] lg:h-[149px] mx-auto mt-12">
         <h1 class="text-4xl font-bold">Job Application Tracker</h1>
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-5 ">
-            <div class="bg-white-300 text-xl font-semibold p-5 rounded-md shadow-sm">
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-5">
+            <div class="text-xl font-semibold p-5 rounded-md shadow-sm">
                 <p class="text-sm">Total</p>
                 <p id="Total">0</p>
             </div>
-            <div class="bg-white-300 text-xl font-semibold p-5 rounded-md shadow-sm">
+
+            <div class="text-xl font-semibold p-5 rounded-md shadow-sm">
                 <p class="text-sm">Interview</p>
                 <p id="Interview" class="text-green-500">0</p>
             </div>
-            <div class="bg-white-300 text-xl font-semibold p-5 rounded-md shadow-sm">
+
+            <div class="text-xl font-semibold p-5 rounded-md shadow-sm">
                 <p class="text-sm">Rejected</p>
                 <p id="Rejected" class="text-red-500">0</p>
             </div>
         </div>
     </header>
-    <hr class="lg:w-[1110px]  my-8 mx-auto text-gray-400">
 
-    <!-- main Available jobs -->
-    <main class="lg:w-[1110px]  mx-auto">
+    <hr class="lg:w-[1110px] my-8 mx-auto text-gray-400">
+
+    <main class="lg:w-[1110px] mx-auto">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-bold">Available Jobs</h1>
-            <p class="text-2xl  font-semibold text-gray-400">8 jobs</p>
+            <p class="text-2xl font-semibold text-gray-400">8 jobs</p>
         </div>
-        <!-- part-2 all btutton -->
-         <section class="lg:w-[1110px]  mx-auto my-6 ">
-        <div>
-        <button onclick="toggleStyle('all-job-btn')" class="bg-blue-500 text-white px-10 py-2shadow-sm rounded-lg" id="all-job-btn">All</button>
-        <button onclick="toggleStyle('interview-job-btn')" class="bg-white-400 px-5 py-2shadow-sm rounded-lg" id="interview-job-btn">Interview</button>
-        <button onclick="toggleStyle('rejected-job-btn')" class="bg-white-400 px-5 py-2shadow-sm rounded-lg" id="rejected-job-btn">Rejected</button>
 
-        </div>
-    </section>
- 
-    <!-- filtered card -->
-     <section id="filtered-section" class="hidden">
         
-     </section>
-    <!-- part-3 all card section -->
+        <section class="my-6">
+            <button onclick="toggleStyle('all-job-btn')" class="bg-blue-500 text-white px-6 py-2 rounded-lg" id="all-job-btn">All</button>
+            <button onclick="toggleStyle('interview-job-btn')" class="bg-gray-400 px-6 py-2 rounded-lg" id="interview-job-btn">Interview</button>
+            <button onclick="toggleStyle('rejected-job-btn')" class="bg-gray-400 px-6 py-2 rounded-lg" id="rejected-job-btn">Rejected</button>
+        </section>
+
+        <!-- Filtered cards -->
+        <section id="filtered-section" class="hidden space-y-8">
+            
+        </section>
+
+        
+         
+    <!--  all card section -->
     <section id="all-cards" class="space-y-8">
         <!-- card 1 -->
         <div class="card flex justify-between border border-white shadow-lg p-8">
@@ -174,7 +180,7 @@
                 <!-- part -1 -->
                  <div class="mb-4">
                     <h1 class="fristCorp text-2xl font-semibold">Innovation Labs</h1>
-                <p class="nativeDeveloper text-gray-400">UI/UX EngineerUI/UX Engineer</p>
+                <p class="nativeDeveloper text-gray-400">UI/UX Engineer</p>
                  </div>
                  <!-- part -2 -->
                   <div>
@@ -231,7 +237,7 @@
              <div class="space-y-6">
                 <!-- part -1 -->
                  <div class="mb-4">
-                    <h1 class="fristCorp text-2xl font-semibold">StartupXYZStartupXYZ</h1>
+                    <h1 class="fristCorp text-2xl font-semibold">StartupXYZ</h1>
                 <p class="nativeDeveloper text-gray-400">Full Stack Engineer</p>
                  </div>
                  <!-- part -2 -->
@@ -261,7 +267,7 @@
                 <!-- part -1 -->
                  <div class="mb-4">
                     <h1 class="fristCorp text-2xl font-semibold">TechCorp Industries</h1>
-                <p class="nativeDeveloper text-gray-400">Senior Frontend DeveloperSenior Frontend Developer</p>
+                <p class="nativeDeveloper text-gray-400">Senior Frontend Developer</p>
                  </div>
                  <!-- part -2 -->
                   <div>
@@ -269,8 +275,7 @@
                   </div>
                   <!-- part -3 -->
                     <p class="status">Not Applied</p>
-                    <p class="notes ">We are looking for an experienced Frontend Developer to build scalable web applications using React and TypeScript. You will work with a talented team on cutting-edge projects.</p> 
-
+                    
                     <div class="flex gap-3">
                         <button class="interview-btn shadow-lg border border-green-400 px-4 py-2 text-green-400 font-bold rounded-sm ">interview</button>
                         <button class="rejected-btn shadow-lg border border-red-400 px-4 py-2 text-red-400 font-bold rounded-sm">Rejected</button>
@@ -286,21 +291,21 @@
 
     </section>
 
-<section id="interview-job-btn">
-        <div class="lg:w-[1110px] mx-auto bg-[#F1F2F4] p-[100px] space-y-5">
-            <div  class="flex justify-center">
-                <img src="./jobs.png" alt="">
-            </div>
-           
-               <div class="text-center">
-                 <h1 class="font-semibold text-2xl text-[#002C5C]">No jobs available</h1>
-                <p class="text-[#64748B]">Check back soon for new job opportunities</p>
-               </div>
-        </div>
-    </section>
 
+        <!-- Not Found Section -->
+        <section id="not-found-section" class="hidden">
+            <div class="bg-[#F1F2F4] p-[100px] space-y-5">
+                <div class="flex justify-center">
+                    <img src="./jobs.png" alt="">
+                </div>
+
+                <div class="text-center">
+                    <h1 class="font-semibold text-2xl text-[#002C5C]">No jobs available</h1>
+                    <p class="text-[#64748B]">Check back soon for new job opportunities</p>
+                </div>
+            </div>
+        </section>
     </main>
-    
 
     <script src="./script.js"></script>
 </body>
